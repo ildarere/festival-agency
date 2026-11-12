@@ -1,0 +1,53 @@
+appId: com.ewa.app
+productName: EWA
+
+directories:
+  buildResources: resources
+  output: dist
+
+files:
+  - '!**/.vscode/*'
+  - '!src/*'
+  - '!electron.vite.config.{js,ts,mjs,cjs}'
+  - '!{.eslintignore,.eslintrc.cjs,.prettierignore,.prettierrc.yaml,CHANGELOG.md,README.md}'
+  - '!{.env,.env.*,.npmrc,pnpm-lock.yaml,package-lock.json}'
+  - '!{tsconfig.json,tsconfig.node.json,tsconfig.web.json}'
+  - '!{postcss.config.js,tailwind.config.js}'
+
+# Нативный модуль better-sqlite3 содержит бинарник .node, который не может
+# исполняться изнутри asar-архива — распаковываем его рядом с архивом.
+asarUnpack:
+  - resources/**
+  - '**/*.node'
+  - node_modules/better-sqlite3/**
+
+win:
+  icon: resources/icon.ico
+  target:
+    - target: nsis
+      arch:
+        - x64
+    - target: portable
+      arch:
+        - x64
+
+nsis:
+  oneClick: false
+  perMachine: false
+  allowToChangeInstallationDirectory: true
+  artifactName: EWA-Setup-${version}.${ext}
+  shortcutName: EWA
+  uninstallDisplayName: EWA
+  createDesktopShortcut: always
+
+mac:
+  icon: resources/icon.icns
+  category: public.app-category.productivity
+  target:
+    - target: dmg
+      arch:
+        - x64
+        - arm64
+
+dmg:
+  artifactName: EWA-${version}.${ext}

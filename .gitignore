@@ -1,0 +1,27 @@
+# Dependencies
+node_modules/
+
+# Build and packaging output
+out/
+dist/
+*.tsbuildinfo
+
+# Logs
+*.log
+
+# Local environment files
+.env
+.env.*
+!.env.example
+!.env.*.example
+
+# Local application database
+ewa.db
+ewa.db-*
+
+# Editor and OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+Desktop.ini
